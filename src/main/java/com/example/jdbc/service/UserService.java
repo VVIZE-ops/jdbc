@@ -31,9 +31,7 @@ public class UserService {
         return userRepository.insertGetKey(user);
     }
 
-    public void update(User user){
-        userRepository.update(user);
-    }
+    public void update(String username,String login_name,Integer id){ userRepository.update(username,login_name, id); }
 
     public void delete(Integer id){
         userRepository.delete(id);

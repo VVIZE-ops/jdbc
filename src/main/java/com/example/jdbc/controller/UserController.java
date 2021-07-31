@@ -39,14 +39,20 @@ public class UserController {
     public User findUserById(Integer id){
         return userService.findUserById(id);
     }
-
+/*
     @RequestMapping("/update")
-    public void update(User user){
+    public String update(User user){
         userService.update(user);
+        return "修改成功";
+    }*/
+    @RequestMapping("/update")
+    public void update(String username,String login_name,Integer id){
+        userService.update(username,login_name, id);
     }
 
     @RequestMapping("/delete")
-    public void delete(Integer id){
+    public String delete(Integer id){
         userService.delete(id);
+        return "删除成功";
     }
 }
