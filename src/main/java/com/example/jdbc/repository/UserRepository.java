@@ -101,7 +101,7 @@ public class UserRepository {
     }*/
     public void update(String username,String login_name,Integer id){
         //定义SQL语句
-        String sql = "update tb_user set username=?, login_name=?, where id=?"+id;
+        String sql = "update tb_user set username=?, login_name=? where id=?";
         Object args[] = new Object[]{login_name,username,id};
         //执行
         jdbcTemplate.update(sql, args);
