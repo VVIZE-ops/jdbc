@@ -21,6 +21,8 @@ public class UserService {
         return userRepository.selectByUsername(username);
     }
 
+    public User findUserById(Integer id){return userRepository.findUserById(id);}
+
     public List<User> findAll(){
         return userRepository.findAll();
     }

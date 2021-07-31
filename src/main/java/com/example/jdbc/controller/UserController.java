@@ -35,6 +35,11 @@ public class UserController {
         return userService.findAll();
     }
 
+    @RequestMapping("/findUserById")
+    public User findUserById(Integer id){
+        return userService.findUserById(id);
+    }
+
     @RequestMapping("/update")
     public void update(User user){
         userService.update(user);
