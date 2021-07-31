@@ -30,9 +30,9 @@ public class UserRepository {
      * 插入数据
      * @return 插入影响的行数
      */
-    public Integer insertUser(){
-        String sql = "insert into tb_user(login_name, username, password) values(?, ?, ?), (?, ?, ?)";
-        Object args[] = new Object[]{"张三", "admin", "123456", "李四", "123456", "123456"};
+    public Integer insertUser(String login_name,String username,String password){
+        String sql = "insert into tb_user(login_name, username, password) values(?, ?, ?)";
+        Object args[] = new Object[]{login_name,username,password};
         //参数一：插入数据的SQL语句，参数二：对应SQL语句中占位符？的参数
         return jdbcTemplate.update(sql, args);
     }

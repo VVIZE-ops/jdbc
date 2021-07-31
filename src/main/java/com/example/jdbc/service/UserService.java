@@ -13,8 +13,8 @@ public class UserService {
     @Resource
     private UserRepository userRepository;
 
-    public Integer insertUser(){
-        return userRepository.insertUser();
+    public Integer insertUser(String login_name,String username,String password){
+        return userRepository.insertUser(login_name,username,password);
     }
 
     public User selectByUsername(String username){

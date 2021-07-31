@@ -15,8 +15,9 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/insertUser")
-    public String insertUser(){
-        return "插入数据["+userService.insertUser()+"]条";
+    public String insertUser(String login_name,String username,String password){
+        userService.insertUser(login_name,username,password);
+        return "插入数据成功";
     }
 
     @RequestMapping("/insertGetKey")
