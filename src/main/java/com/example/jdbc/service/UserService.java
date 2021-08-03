@@ -35,6 +35,8 @@ public class UserService {
 
     public void update(String username,String login_name,Integer id){ userRepository.update(username,login_name, id); }
 
+    public void upDate(String username,String login_name,String password,Integer id){ userRepository.upDate(login_name,username,password,id); }
+
     public void delete(Integer id){
         userRepository.delete(id);
     }

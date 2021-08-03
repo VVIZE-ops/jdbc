@@ -94,11 +94,33 @@ public class UserController {
         userService.update(user);
         return "修改成功";
     }*/
-    @RequestMapping("/update/{id}")
-    public void update(@PathVariable String username,String login_name,Integer id){
-        userService.update(username,login_name, id);
+
+    /**
+     * describe:修改数据
+     * @param username
+     * @param login_name
+     * @param id
+     */
+    @RequestMapping("/upDate")
+    public ModelAndView upDate(User user) {
+        userService.upDate(user.getUsername(),user.getLoginName(),user.getPassword(),user.getId());
+        //model.addAttribute("user",new User());
+        return new ModelAndView("redirect:/user/findStu");
     }
 
+    @RequestMapping("/update/{id}")
+    public ModelAndView update(@PathVariable Integer id){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = userService.findUserById(id);
+        modelAndView.addObject("students", user);
+        modelAndView.setViewName("update");
+        return modelAndView;
+    }
+
+
+    /**
+     * describe:删除
+     */
     @RequestMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable Integer id){
         userService.delete(id);
