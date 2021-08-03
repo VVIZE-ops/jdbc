@@ -100,8 +100,8 @@ public class UserController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id){
+    public ModelAndView delete(@PathVariable Integer id){
         userService.delete(id);
-        return "删除成功";
+        return new ModelAndView("redirect:/user/findStu");
     }
 }
