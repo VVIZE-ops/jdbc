@@ -5,9 +5,7 @@ import com.example.jdbc.entity.User;
 import com.example.jdbc.service.UserService;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -19,11 +17,38 @@ public class UserController {
     @Resource
     private UserService userService;
 
+/*
     @RequestMapping("/insertUser")
     public String insertUser(String login_name,String username,String password){
         userService.insertUser(login_name,username,password);
         return "插入数据成功";
+    }*/
+
+    /**
+     * describe:为了实现页面跳转后正常插入数据
+     * @return
+     */
+    @RequestMapping("/insertuser")
+    public ModelAndView insertuser(User user){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("students",user);
+        modelAndView.setViewName("add");
+        return modelAndView;
+                //new ModelAndView("redirect:/user/findStu");
     }
+
+    @RequestMapping("/insertUser")
+    public ModelAndView insertUser(User user){
+        userService.insertUser(user.getLoginName(),user.getUsername(),user.getPassword());
+        //model.addAttribute("user",new User());
+        return new ModelAndView("redirect:/user/findStu");
+    }
+
+
+    /**
+     * describe：主页，展示所有数据，并且有增删改的跳转按钮
+     * @return
+     */
 
     @RequestMapping("/findStu")
     public ModelAndView findStu(){
