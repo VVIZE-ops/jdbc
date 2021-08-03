@@ -3,8 +3,13 @@ package com.example.jdbc.controller;
 
 import com.example.jdbc.entity.User;
 import com.example.jdbc.service.UserService;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -18,6 +23,16 @@ public class UserController {
     public String insertUser(String login_name,String username,String password){
         userService.insertUser(login_name,username,password);
         return "插入数据成功";
+    }
+
+    @RequestMapping("/findStu")
+    public ModelAndView findStu(){
+        ModelAndView modelAndView = new ModelAndView();
+        List<User> studentList = userService.findAll();
+        modelAndView.addObject("students",studentList);
+        modelAndView.setViewName("index");
+        return modelAndView;
+
     }
 
     @RequestMapping("/insertGetKey")
@@ -45,13 +60,13 @@ public class UserController {
         userService.update(user);
         return "修改成功";
     }*/
-    @RequestMapping("/update")
-    public void update(String username,String login_name,Integer id){
+    @RequestMapping("/update/{id}")
+    public void update(@PathVariable String username,String login_name,Integer id){
         userService.update(username,login_name, id);
     }
 
-    @RequestMapping("/delete")
-    public String delete(Integer id){
+    @RequestMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id){
         userService.delete(id);
         return "删除成功";
     }

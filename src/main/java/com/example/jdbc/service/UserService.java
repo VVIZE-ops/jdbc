@@ -27,6 +27,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<User> findStu(){return userRepository.findAll();}
+
     public User insertGetKey(User user){
         return userRepository.insertGetKey(user);
     }

@@ -37,6 +37,22 @@ public class UserRepository {
         return jdbcTemplate.update(sql, args);
     }
 
+
+    /**
+     * 查询所有数据
+     * @return:list<User>
+     */
+    /*
+    public List<User> findStu(){
+        String sql = "select * from tb_user";
+        //定义一个RowMapper
+        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
+        //执行查询方法
+        User user = jdbcTemplate.queryForObject(sql, new Object[]{username}, rowMapper);
+        return user;
+    }*/
+
+
     /***
      * 根据userName查询数据
      * @param username
