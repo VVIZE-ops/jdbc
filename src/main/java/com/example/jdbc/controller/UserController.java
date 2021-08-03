@@ -34,6 +34,15 @@ public class UserController {
         return modelAndView;
 
     }
+    /*
+    @RequestMapping("/findStu")
+    public String findStu(Model model){
+        List<User> list = userService.findAll();
+        model.addAttribute("jdbc",list);
+        return "index";
+
+    }*/
+
 
     @RequestMapping("/insertGetKey")
     public User insertGetKey(User user){
