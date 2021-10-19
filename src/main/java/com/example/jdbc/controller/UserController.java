@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -97,9 +99,9 @@ public class UserController {
 
     /**
      * describe:修改数据
-     * @param username
-     * @param login_name
-     * @param id
+     * @param:username
+     * @param:login_name
+     * @param:id
      */
     @RequestMapping("/upDate")
     public ModelAndView upDate(User user) {
@@ -126,4 +128,34 @@ public class UserController {
         userService.delete(id);
         return new ModelAndView("redirect:/user/findStu");
     }
+
+
+    @RequestMapping("/deletes/{ids}")
+    public ModelAndView delete(@PathVariable String ids){
+        String[] id=ids.split(",");
+        System.out.println(ids.length());
+        for(int i=0;i<id.length;i++){
+            userService.delete(Integer.valueOf(id[i]));}
+        return new ModelAndView("redirect:/user/findStu");
+    }
+
+    /**
+     * */
+//    for(int i=0;i<id.length;i++){
+//        try{
+//            userService.delete(Integer.valueOf(id[i]));
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            System.out.println("不存在id为"+id[i]+"的数据");
+//        }
+//    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/findStu", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteBookByNumber(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        request.setCharacterEncoding("utf-8");
+        String bookName = request.getParameter("ids");
+        System.out.println(bookName);}
+
 }

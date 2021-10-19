@@ -42,3 +42,56 @@
 </h2>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+2021.10.11
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information Management System</title>
+</head>
+<body>
+<h1 align="center">Student Information Management System</h1>
+<h3 >
+    <table align="center">
+        <thead>
+        <tr>
+            <th >id</th>
+            <th >name</th>
+            <th >gender</th>
+            <th >admissionTime</th>
+            <th colspan="2">operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s:${students}">
+            <td th:text="${s.id}">1</td>
+            <td th:text="${s.loginName}">2</td>
+            <td th:text="${s.username}">3</td>
+            <td th:text="${s.password}">4</td>
+            <!-- <td th:text="${#dates.format(s.admissionTime, 'yyyy.MM.dd')}">4</td> -->
+
+            <td>
+                <a th:href="@{/user/delete/{id}(id=${s.id})}">delete</a>
+            </td>
+            <td>
+                <a th:href="@{/user/update/{id}(id=${s.id})}">update</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</h3>
+<h2 align="center">
+    <a th:href="@{/user/insertuser}">Add information</a>
+</h2>
+</body>
+</html>
