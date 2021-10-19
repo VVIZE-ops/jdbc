@@ -135,16 +135,17 @@
                 checkedbox.each(function(index, data){
                     ids.push($(data).attr('value'));
                 });
-               alert(ids);
+               // alert(ids);
                 $.ajax({
-                    url: "/user/deletes/",
+                    url: "./deletes/"+ids,
 
-                    dataType: "json",
+                    //dataType: "json",
                     type: "post",
-                    data: ids,
-                    // success: function(result) {  //这里就是我出错的地方
-                    //     alert(result.msg);
-                    // },
+                    data: {"ids":ids},
+                    success: function(data) {  //这里就是我出错的地方
+                        window.location.reload();
+                        // alert(result.msg);
+                    }
 
                     // error: function(data) {
                     //     alert("请求出错");

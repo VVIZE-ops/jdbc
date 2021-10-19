@@ -151,12 +151,28 @@ public class UserController {
 //        }
 //    }
 
-    @CrossOrigin
-    @RequestMapping(value = "/findStu", method = RequestMethod.POST)
+//    @RequestMapping(value ="/Delete", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String deleteApp(HttpServletRequest request) {
+//        //logger.info("Delete info from table.");
+//        String ids= request.getParameter("ids");//获取id
+//        String[] id=ids.split(",");
+//        System.out.println(ids.length());
+//        for(int i=0;i<id.length;i++){
+//            userService.delete(Integer.valueOf(id[i]));}
+//        return "success";
+//    }
     @ResponseBody
-    public void deleteBookByNumber(HttpServletRequest request, HttpServletResponse response) throws Exception{
-        request.setCharacterEncoding("utf-8");
-        String bookName = request.getParameter("ids");
-        System.out.println(bookName);}
+    @PutMapping("/Delete/{ids}")
+    private String Test(@PathVariable String ids){
+        String[] id=ids.split(",");
+        System.out.println(ids.length());
+        for(int i=0;i<id.length;i++){
+            userService.delete(Integer.valueOf(id[i]));}
+        return "success";
+    }
+
+
+
 
 }
