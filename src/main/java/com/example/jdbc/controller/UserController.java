@@ -162,17 +162,17 @@ public class UserController {
 //            userService.delete(Integer.valueOf(id[i]));}
 //        return "success";
 //    }
-    @ResponseBody
-    @PutMapping("/Delete/{ids}")
-    private String Test(@PathVariable String ids){
-        String[] id=ids.split(",");
-        System.out.println(ids.length());
-        for(int i=0;i<id.length;i++){
-            userService.delete(Integer.valueOf(id[i]));}
-        return "success";
-    }
-
-
+//    @ResponseBody
+//    @PutMapping("/Delete/{ids}")
+//    private String Test(@PathVariable String ids){
+//        String[] id=ids.split(",");
+//        System.out.println(ids.length());
+//        for(int i=0;i<id.length;i++){
+//            userService.delete(Integer.valueOf(id[i]));}
+//        return "success";
+//    }
+//
+//
 
 
 }

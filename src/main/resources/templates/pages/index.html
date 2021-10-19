@@ -138,7 +138,6 @@
                // alert(ids);
                 $.ajax({
                     url: "./deletes/"+ids,
-
                     //dataType: "json",
                     type: "post",
                     data: {"ids":ids},
@@ -146,7 +145,6 @@
                         window.location.reload();
                         // alert(result.msg);
                     }
-
                     // error: function(data) {
                     //     alert("请求出错");
                     //     alert(data);
