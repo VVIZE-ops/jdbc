@@ -6,9 +6,13 @@ import com.example.jdbc.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
+//    public User findUserByKeys(String keys){
+//        return
+//    };
     //注入UserRepository
     @Resource
     private UserRepository userRepository;
@@ -26,6 +30,8 @@ public class UserService {
     public List<User> findAll(){
         return userRepository.findAll();
     }
+
+    public List<Map<String, Object>>  findByKeys(String keys){return userRepository.findByKeys(keys);}
 
     public List<User> findStu(){return userRepository.findAll();}
 

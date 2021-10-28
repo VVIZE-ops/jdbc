@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Repository注解：标注这是一个持久化操作对象
@@ -60,7 +61,7 @@ public class UserRepository {
      */
     public User selectByUsername(String username){
         //定义SQL语句
-        String sql = "select * from tb_user where username = ?";
+        String sql = "select * from tb_user where username like %?%";
         //定义一个RowMapper
         RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
         //执行查询方法
@@ -159,4 +160,11 @@ public class UserRepository {
         return user;
     }
 
+    public List<Map<String, Object>> findByKeys(String keys) {
+        String sql = "select * from tb_user where id ="+keys+" or password like '%"+keys+"%' or username like '%"+keys+"%'";
+//        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
+        //执行查询方法
+
+        return jdbcTemplate.queryForList(sql);
+    }
 }

@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <title>Student Information Management System</title>
 </head>
+
+<body>
+请输入搜索关键字: <input type="search" id="searchVal">
+<input type="submit" value=“”查询“ id="searchBtn"/>
+
+<div class="text"></div>
+
+</body>
+<!--<form action="/findUserById" method="get">-->
+<!--    <div>-->
+<!--        <label for="search"></label>-->
+<!--        <input name="wd" id="search" value="花">-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <button>搜索</button>-->
+<!--    </div>-->
+<!--</form>-->
 <body>
 <h1 align="center">Student Information Management System</h1>
 
@@ -141,7 +158,7 @@
                     //dataType: "json",
                     type: "post",
                     data: {"ids":ids},
-                    success: function(data) {  //这里就是我出错的地方
+                    success: function(data) {
                         window.location.reload();
                         // alert(result.msg);
                     }
@@ -153,6 +170,20 @@
             }
         }
     });
+
+    $('#searchBtn').on('click', function (){
+        $.ajax({
+            url: `/user/findByKeys/${$('#searchVal').val()}`,
+            //dataType: "json",
+            type: "get",
+            data: {},
+            success: function(data) {
+                console.log(data)
+                $('.text').html(JSON.stringify(data))
+                //window.location.reload();
+            }
+        });
+    })
 
 
 </script>

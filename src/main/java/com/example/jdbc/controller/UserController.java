@@ -3,15 +3,12 @@ package com.example.jdbc.controller;
 
 import com.example.jdbc.entity.User;
 import com.example.jdbc.service.UserService;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -59,7 +56,18 @@ public class UserController {
         modelAndView.addObject("students",studentList);
         modelAndView.setViewName("index");
         return modelAndView;
-
+    }
+    /**
+    * describe:查询后页面，展示命中的数据，并且可以返回到主页
+    *
+    * */
+    @RequestMapping("/findKeys/{keys}")
+    public ModelAndView findKeys(@PathVariable String keys){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Map<String, Object>> studentList = userService.findByKeys(keys);
+        modelAndView.addObject("students",studentList);
+        modelAndView.setViewName("findKey");
+        return modelAndView;
     }
     /*
     @RequestMapping("/findStu")
@@ -76,8 +84,8 @@ public class UserController {
         return userService.insertGetKey(user);
     }
 
-    @RequestMapping("/selectByUsername")
-    public User selectByUsername(String username){
+    @RequestMapping("/selectByUsername/{name}")
+    public User selectByUsername(@PathVariable String username){
         return userService.selectByUsername(username);
     }
 
@@ -86,9 +94,26 @@ public class UserController {
         return userService.findAll();
     }
 
-    @RequestMapping("/findUserById")
-    public User findUserById(Integer id){
-        return userService.findUserById(id);
+
+//    未实现
+//    @RequestMapping("/findUserById/{id}")
+//    public User findUserById(@PathVariable Integer id){
+//        return userService.findUserById(id);
+//    }
+
+    /**
+     * 模糊查询
+     *
+     * @return
+     * **/
+    @RequestMapping("/findByKeys/{keys}")
+    public Object findByKeys(@PathVariable String keys){
+         if(keys!=null){
+             return userService.findByKeys(keys);
+         }
+         else {
+             return new ModelAndView("redirect:/user/findStu");
+         }
     }
 /*
     @RequestMapping("/update")
