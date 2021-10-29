@@ -12,7 +12,15 @@
 
 <div class="text"></div>
 
-</body>
+
+
+<!--<form>-->
+<!--    <input type="text" name="name" id="test" />-->
+<!--    <input type="submit" name="button" value="获取" id="searchBtn" />-->
+<!--</form>-->
+
+
+
 <!--<form action="/findUserById" method="get">-->
 <!--    <div>-->
 <!--        <label for="search"></label>-->
@@ -114,16 +122,8 @@
     })
     console.log(ids)
     console.log(doms)
+    //alert(a);
 
-    //删除多个 url:https://blog.csdn.net/yuxiangdeming/article/details/103964578
-    //$('deleteM').onclick = function () {
-      //  let box = document.querySelectorAll('.chk');
-        //for(let i = box.length-1;i>=0;i--){
-          //  if (box[i].checked){
-            //    box[i].parentNode.parentNode.remove();
-            //}
-        //}
-    //}
 
     $("input[id^='box_']").click(function(){//点击每一个子checkbox，都会触发这个事件
 
@@ -155,13 +155,15 @@
                // alert(ids);
                 $.ajax({
                     url: "./deletes/"+ids,
+
                     //dataType: "json",
                     type: "post",
                     data: {"ids":ids},
-                    success: function(data) {
+                    success: function(data) {  //这里就是我出错的地方
                         window.location.reload();
                         // alert(result.msg);
                     }
+
                     // error: function(data) {
                     //     alert("请求出错");
                     //     alert(data);
@@ -171,19 +173,20 @@
         }
     });
 
-    $('#searchBtn').on('click', function (){
+    //搜索
+    $('#searchBtn').on('click', function () {
         $.ajax({
             url: `/user/findByKeys/${$('#searchVal').val()}`,
             //dataType: "json",
             type: "get",
             data: {},
-            success: function(data) {
+            success: function (data) {
                 console.log(data)
                 $('.text').html(JSON.stringify(data))
                 //window.location.reload();
             }
-        });
-    })
+        })
+    });
 
 
 </script>

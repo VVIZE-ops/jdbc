@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Repository注解：标注这是一个持久化操作对象
@@ -160,11 +159,32 @@ public class UserRepository {
         return user;
     }
 
-    public List<Map<String, Object>> findByKeys(String keys) {
-        String sql = "select * from tb_user where id ="+keys+" or password like '%"+keys+"%' or username like '%"+keys+"%'";
+    /***
+     * 判断String keys是否是数字
+     * @param str
+     * @return
+     */
+    public static boolean isNumeric(String str){
+        for(int i = 0; i < str.length(); i++){
+            if(!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public List<User> findByKeys(String keys) {
+        String sql = null;
+        if(isNumeric(keys)){
+             sql = "select * from tb_user where id ="+keys+" or password like '%"+keys+"%'";
+        }else{
+             sql = "select * from tb_user where password like '%"+keys+"%' or username like '%"+keys+"%'";
+        }
 //        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
         //执行查询方法
+        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
 
-        return jdbcTemplate.queryForList(sql);
+        return jdbcTemplate.query(sql,rowMapper);
     }
 }

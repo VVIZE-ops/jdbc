@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -49,6 +48,24 @@ public class UserController {
      * @return
      */
 
+//    @RequestMapping("/findStu/{keys}")
+//    public ModelAndView findStu(@PathVariable String keys){
+//        ModelAndView modelAndView = new ModelAndView();
+//        if(keys==null){
+//        List<User> studentList = userService.findAll();
+//        modelAndView.addObject("students",studentList);
+//        modelAndView.setViewName("index");
+//        return modelAndView;
+//        }else{
+//            List<User> studentList = userService.findByKeys(keys);
+//            modelAndView.addObject("students",studentList);
+//            modelAndView.setViewName("index");
+//            return modelAndView;
+//        }
+//
+//    }
+
+
     @RequestMapping("/findStu")
     public ModelAndView findStu(){
         ModelAndView modelAndView = new ModelAndView();
@@ -64,7 +81,7 @@ public class UserController {
     @RequestMapping("/findKeys/{keys}")
     public ModelAndView findKeys(@PathVariable String keys){
         ModelAndView modelAndView = new ModelAndView();
-        List<Map<String, Object>> studentList = userService.findByKeys(keys);
+        List<User> studentList = userService.findByKeys(keys);
         modelAndView.addObject("students",studentList);
         modelAndView.setViewName("findKey");
         return modelAndView;

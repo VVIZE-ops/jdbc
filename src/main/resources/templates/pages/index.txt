@@ -1,57 +1,3 @@
-
-<!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Student Information Management System</title>
-</head>
-<body>
-<h1 align="center">Student Information Management System</h1>
-<h3 >
-  <table align="center">
-    <thead>
-    <tr>
-      <th >id</th>
-      <th >name</th>
-      <th >gender</th>
-      <th >admissionTime</th>
-      <th colspan="2">operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="s:${students}">
-      <td th:text="${s.id}">1</td>
-      <td th:text="${s.loginName}">2</td>
-      <td th:text="${s.username}">3</td>
-      <td th:text="${s.password}">4</td>
-      <!-- <td th:text="${#dates.format(s.admissionTime, 'yyyy.MM.dd')}">4</td> -->
-
-      <td>
-        <a th:href="@{/jdbc/delete/{id}(id=${s.id})}">delete</a>
-      </td>
-      <td>
-        <a th:href="@{/jdbc/update/{id}(id=${s.id})}">update</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</h3>
-<h2 align="center">
-  <a th:href="@{/jdbc/insertUser}">Add information</a>
-</h2>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-2021.10.11
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 
@@ -59,12 +5,52 @@
     <meta charset="UTF-8">
     <title>Student Information Management System</title>
 </head>
+
+<!--<body>-->
+<!--请输入搜索关键字: <input type="search" id="searchVal">-->
+<!--<input type="submit" value=“”查询“ id="searchBtn"/>-->
+
+<!--<div class="text"></div>-->
+
+
+
+<!--<form>-->
+<!--    <input type="text" name="name" id="test" />-->
+<!--    <input type="submit" name="button" value="获取" id="searchBtn" />-->
+<!--</form>-->
+
+
+</body>
+<!--<form action="/findUserById" method="get">-->
+<!--    <div>-->
+<!--        <label for="search"></label>-->
+<!--        <input name="wd" id="search" value="花">-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <button>搜索</button>-->
+<!--    </div>-->
+<!--</form>-->
 <body>
 <h1 align="center">Student Information Management System</h1>
+
+<h6 align="center">
+    <form class="form-inline definewidth m20"
+          action="#" method="post">
+<!--        <a th:href="@{/user/deletes/{ids}(ids="btn")}">delete</a>-->
+        <input class="btn btn-primary" type="button" id="btn" value="删除"/>
+    </form>
+</h6>
+
 <h3 >
     <table align="center">
+<!--        <form class="form-inline definewidth m20"-->
+<!--              action="#" method="post">-->
+<!--            <input class="btn btn-primary" type="button" id="btn" value="删除"/>-->
+<!--        </form>-->
         <thead>
         <tr>
+<!--            <input class="btn btn-primary" type="button" id="btn" value="删除"/>-->
+            <th >选择</th>
             <th >id</th>
             <th >name</th>
             <th >gender</th>
@@ -74,18 +60,49 @@
         </thead>
         <tbody>
         <tr th:each="s:${students}">
+<!--            <td ><input type="checkbox" data-id="1" class="checked"/></td>-->
+            <td><input type="checkbox" th:value="${s.id}" id="box_${st.index+1 }"/></td>
             <td th:text="${s.id}">1</td>
             <td th:text="${s.loginName}">2</td>
             <td th:text="${s.username}">3</td>
             <td th:text="${s.password}">4</td>
             <!-- <td th:text="${#dates.format(s.admissionTime, 'yyyy.MM.dd')}">4</td> -->
-
             <td>
                 <a th:href="@{/user/delete/{id}(id=${s.id})}">delete</a>
             </td>
             <td>
                 <a th:href="@{/user/update/{id}(id=${s.id})}">update</a>
             </td>
+        </tbody>
+<!--        <s:iterator value="depts" status="st">-->
+<!--            <tr th:each="s:${students}">-->
+<!--            <tr>-->
+<!--                <td ><input type="checkbox" data-id="1" class="checked"/></td>&ndash;&gt;-->
+<!--                <td th:text="${s.id}">1</td>-->
+<!--                <td th:text="${s.loginName}">2</td>-->
+<!--                <td th:text="${s.username}">3</td>-->
+<!--                <td th:text="${s.password}">4</td>-->
+<!--                &lt;!&ndash; <td th:text="${#dates.format(s.admissionTime, 'yyyy.MM.dd')}">4</td> &ndash;&gt;-->
+
+<!--                <td>-->
+<!--                    <a th:href="@{/user/delete/{id}(id=${s.id})}">delete</a>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <a th:href="@{/user/update/{id}(id=${s.id})}">update</a>-->
+<!--                </td>-->
+<!--                    <a href="${path }/identity/showUpdateDept.action?dept.id=${id}">修改</a>-->
+<!--                </td>-->
+
+<!--            </tr>-->
+<!--        </s:iterator>-->
+
+<!--        <tfoot>-->
+<!--        <tr>-->
+<!--            <td colspan="9">-->
+<!--                <input type="button" id="deleteM" value="删除多个">-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tfoot>-->
         </tr>
         </tbody>
     </table>
@@ -94,4 +111,110 @@
     <a th:href="@{/user/insertuser}">Add information</a>
 </h2>
 </body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    let doms = document.querySelectorAll('.checked')
+    let ids = []
+    doms.forEach(item => {
+        console.log(item)
+        console.log(item.getAttribute('checked'))
+        if(item.getAttribute('checked') === 'checked') ids.push(item.getAttribute('data-id'))
+    })
+    console.log(ids)
+    console.log(doms)
+    alert(a);
+
+    //删除多个 url:https://blog.csdn.net/yuxiangdeming/article/details/103964578
+    //$('deleteM').onclick = function () {
+      //  let box = document.querySelectorAll('.chk');
+        //for(let i = box.length-1;i>=0;i--){
+          //  if (box[i].checked){
+            //    box[i].parentNode.parentNode.remove();
+            //}
+        //}
+    //}
+    // function print(){
+    //     var a=document.getElementById("test").value;
+    //     alert(a);
+    //     console.log(a)
+    // }
+
+    $("input[id^='box_']").click(function(){//点击每一个子checkbox，都会触发这个事件
+
+        /**获取到下面所有checkbox*/
+        var boxs = $("input[id^='box_']");
+        /*
+          * 下面是为checkAll设置它是否checked属性
+            boxs.length表示的是所有子checkbox的个数
+            boxs.filter(":checked").length表示是过滤出所有
+                   子checkbox当中已经被点击选中的checkbox的个数，如果个数相等，
+                   那么就会返回true,如果不相等，就返回false
+        */
+        $("#checkAll").attr("checked",boxs.length == boxs.filter(":checked").length);
+    });
+
+    /**为删除按钮绑定事件*/
+    $("#btn").click(function(){
+        /**获取下面选中的checkbox*/
+        var checkedbox = $("input[id^='box_']:checked");
+        console.log(checkedbox)
+        if(checkedbox.length == 0){
+            alert("至少选择一项");
+        }else{
+            if(confirm("你确定要删除吗？？？")){
+                var ids = new Array();
+                checkedbox.each(function(index, data){
+                    ids.push($(data).attr('value'));
+                });
+               // alert(ids);
+                $.ajax({
+                    url: "./deletes/"+ids,
+                    //dataType: "json",
+                    type: "post",
+                    data: {"ids":ids},
+                    success: function(data) {
+                        window.location.reload();
+                        // alert(result.msg);
+                    }
+                    // error: function(data) {
+                    //     alert("请求出错");
+                    //     alert(data);
+                    // }
+                });
+                // $.ajax({
+                //     url: `/user/findStu/${$('#searchVal').val()}`,
+                //     //dataType: "json",
+                //     type: "get",
+                //     data: {},
+                //     success: function(data) {
+                //         console.log(data)
+                //         $('.text').html(JSON.stringify(data))
+                //     // error: function(data) {
+                //     //     alert("请求出错");
+                //     //     alert(data);
+                //     // }
+                // });
+            }
+        }
+    });
+    //
+    // $('#searchBtn').on('click', function (){
+    //     $.ajax({
+    //         url: `/user/findByKeys/${$('#searchVal').val()}`,
+    //         //dataType: "json",
+    //         type: "get",
+    //         data: {},
+    //         success: function(data) {
+    //             console.log(data)
+    //             $('.text').html(JSON.stringify(data))
+    //             //window.location.reload();
+    //         }
+    //     });
+
+
+
+    })
+
+
+</script>
 </html>
