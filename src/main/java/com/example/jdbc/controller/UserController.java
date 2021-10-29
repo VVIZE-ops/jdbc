@@ -103,12 +103,7 @@ public class UserController {
 
     @RequestMapping("/findByKeys/{keys}")
     public Object findByKeys(@PathVariable String keys){
-        if(keys!=null){
-            return userService.findByKeys(keys);
-        }
-        else {
-            return new ModelAndView("redirect:/user/findStu");
-        }
+        return userService.findByKeys(keys);
     }
     /**
      * describe:修改数据
