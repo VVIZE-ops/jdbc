@@ -40,4 +40,6 @@ public class UserService {
     public void delete(Integer id){
         userRepository.delete(id);
     }
+
+    public List<User> findByKeys(String keys){return userRepository.findByKeys(keys);}
 }

@@ -159,4 +159,32 @@ public class UserRepository {
         return user;
     }
 
+    /**判断字符串是否全部为数字
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isNumeric(String str){
+        for(int i = 0; i < str.length(); i++){
+            if(!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public List<User> findByKeys(String keys) {
+        String sql = null;
+        if(isNumeric(keys)){
+            sql = "select * from tb_user where id ="+keys+" or password like '%"+keys+"%' or username like '%"+keys+"%'";
+        }else{
+            sql = "select * from tb_user where password like '%"+keys+"%' or username like '%"+keys+"%'";
+        }
+//        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
+        //执行查询方法
+        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
+
+        return jdbcTemplate.query(sql,rowMapper);
+    }
 }

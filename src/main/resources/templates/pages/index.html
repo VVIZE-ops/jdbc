@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Student Information Management System</title>
 </head>
+
+
 <body>
 <h1 align="center">Student Information Management System</h1>
 
@@ -15,6 +17,10 @@
         <input class="btn btn-primary" type="button" id="btn" value="删除"/>
     </form>
 </h6>
+
+请输入搜索关键字: <input type="search" id="searchVal">
+<input type="submit" value=“”查询“ id="searchBtn"/>
+<div class="text"></div>
 
 <h3 >
     <table align="center">
@@ -152,6 +158,20 @@
                 });
             }
         }
+    });
+    $('#searchBtn').on('click', function () {
+        $.ajax({
+            url: `/user/findByKeys/${$('#searchVal').val()}`,
+            //dataType: "json",
+            type: "get",
+            data: {},
+            success: function (data) {
+                console.log(data)
+                $('.text').html(JSON.stringify(data))
+
+                //window.location.reload();
+            }
+        })
     });
 
 

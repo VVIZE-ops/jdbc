@@ -97,6 +97,19 @@ public class UserController {
         return "修改成功";
     }*/
 
+/**
+ *
+ * */
+
+    @RequestMapping("/findByKeys/{keys}")
+    public Object findByKeys(@PathVariable String keys){
+        if(keys!=null){
+            return userService.findByKeys(keys);
+        }
+        else {
+            return new ModelAndView("redirect:/user/findStu");
+        }
+    }
     /**
      * describe:修改数据
      * @param:username
