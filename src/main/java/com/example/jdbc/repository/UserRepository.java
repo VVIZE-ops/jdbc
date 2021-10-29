@@ -178,7 +178,9 @@ public class UserRepository {
         String sql = null;
         if(isNumeric(keys)){
             sql = "select * from tb_user where id ="+keys+" or password like '%"+keys+"%' or username like '%"+keys+"%'";
-        }else{
+        }else if(keys==null){
+
+        } else{
             sql = "select * from tb_user where password like '%"+keys+"%' or username like '%"+keys+"%'";
         }
 //        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
