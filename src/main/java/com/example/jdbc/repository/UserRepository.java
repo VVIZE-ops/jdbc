@@ -178,7 +178,7 @@ public class UserRepository {
         String sql = null;
         if(isNumeric(keys)){
             sql = "select * from tb_user where id ="+keys+" or password like '%"+keys+"%' or username like '%"+keys+"%'";
-        }else if(keys==""){
+        }else if(!(keys!=null&&!"".equals(keys))){
             sql = "select * from tb_user";
         } else{
             sql = "select * from tb_user where password like '%"+keys+"%' or username like '%"+keys+"%'";

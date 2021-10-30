@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
     @Resource
     private UserService userService;
@@ -30,8 +31,8 @@ public class UserController {
      * describe:为了实现页面跳转后正常插入数据
      * @return
      */
-    @RequestMapping("/insertuser")
-    public ModelAndView insertuser(User user){
+    @GetMapping ("/insertuser")
+    public Object insertuser(User user){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("students",user);
         modelAndView.setViewName("add");
@@ -52,13 +53,10 @@ public class UserController {
      * @return
      */
 
-    @RequestMapping("/findStu")
-    public ModelAndView findStu(){
-        ModelAndView modelAndView = new ModelAndView();
+    @GetMapping("/findStu")
+    public List<User> findStu(){
         List<User> studentList = userService.findAll();
-        modelAndView.addObject("students",studentList);
-        modelAndView.setViewName("index");
-        return modelAndView;
+        return studentList;
 
     }
     /*
@@ -71,22 +69,22 @@ public class UserController {
     }*/
 
 
-    @RequestMapping("/insertGetKey")
+    @PostMapping ("/insertGetKey")
     public User insertGetKey(User user){
         return userService.insertGetKey(user);
     }
 
-    @RequestMapping("/selectByUsername")
+    @GetMapping("/selectByUsername")
     public User selectByUsername(String username){
         return userService.selectByUsername(username);
     }
 
-    @RequestMapping("/findAll")
+    @GetMapping("/findAll")
     public List<User> findAll(){
         return userService.findAll();
     }
 
-    @RequestMapping("/findUserById")
+    @GetMapping("/findUserById")
     public User findUserById(Integer id){
         return userService.findUserById(id);
     }
@@ -101,8 +99,8 @@ public class UserController {
  *
  * */
 
-    @RequestMapping("/findByKeys/{keys}")
-    public Object findByKeys(@PathVariable String keys){
+    @GetMapping("/findByKeys")
+    public Object findByKeys(@RequestParam(name = "keys",required = false)  String keys){
         return userService.findByKeys(keys);
     }
     /**
@@ -131,20 +129,20 @@ public class UserController {
     /**
      * describe:删除
      */
-    @RequestMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable Integer id){
+    @PostMapping("/delete/{id}")
+    public Object delete(@PathVariable Integer id){
         userService.delete(id);
-        return new ModelAndView("redirect:/user/findStu");
+       return "success";
     }
 
 
-    @RequestMapping("/deletes/{ids}")
-    public ModelAndView delete(@PathVariable String ids){
+    @PostMapping("/deletes/{ids}")
+    public Object delete(@PathVariable String ids){
         String[] id=ids.split(",");
         System.out.println(ids.length());
         for(int i=0;i<id.length;i++){
             userService.delete(Integer.valueOf(id[i]));}
-        return new ModelAndView("redirect:/user/findStu");
+        return "success";
     }
 
 

@@ -1,182 +1,162 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Student Information Management System</title>
+    <meta charset="utf-8">
+    <title>ViewUI example</title>
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 </head>
-
-
 <body>
-<h1 align="center">Student Information Management System</h1>
-
-<h6 align="center">
-    <form class="form-inline definewidth m20"
-          action="#" method="post">
-<!--        <a th:href="@{/user/deletes/{ids}(ids="btn")}">delete</a>-->
-        <input class="btn btn-primary" type="button" id="btn" value="删除"/>
-    </form>
-</h6>
-
-请输入搜索关键字: <input type="search" id="searchVal">
-<input type="submit" value=“”查询“ id="searchBtn"/>
-<div class="text"></div>
-
-<h3 >
-    <table align="center">
-<!--        <form class="form-inline definewidth m20"-->
-<!--              action="#" method="post">-->
-<!--            <input class="btn btn-primary" type="button" id="btn" value="删除"/>-->
-<!--        </form>-->
-        <thead>
-        <tr>
-<!--            <input class="btn btn-primary" type="button" id="btn" value="删除"/>-->
-            <th >选择</th>
-            <th >id</th>
-            <th >name</th>
-            <th >gender</th>
-            <th >admissionTime</th>
-            <th colspan="2">operation</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="s:${students}">
-<!--            <td ><input type="checkbox" data-id="1" class="checked"/></td>-->
-            <td><input type="checkbox" th:value="${s.id}" id="box_${st.index+1 }"/></td>
-            <td th:text="${s.id}">1</td>
-            <td th:text="${s.loginName}">2</td>
-            <td th:text="${s.username}">3</td>
-            <td th:text="${s.password}">4</td>
-            <!-- <td th:text="${#dates.format(s.admissionTime, 'yyyy.MM.dd')}">4</td> -->
-            <td>
-                <a th:href="@{/user/delete/{id}(id=${s.id})}">delete</a>
-            </td>
-            <td>
-                <a th:href="@{/user/update/{id}(id=${s.id})}">update</a>
-            </td>
-
-        </tbody>
-<!--        <s:iterator value="depts" status="st">-->
-<!--            <tr th:each="s:${students}">-->
-<!--            <tr>-->
-<!--                <td ><input type="checkbox" data-id="1" class="checked"/></td>&ndash;&gt;-->
-<!--                <td th:text="${s.id}">1</td>-->
-<!--                <td th:text="${s.loginName}">2</td>-->
-<!--                <td th:text="${s.username}">3</td>-->
-<!--                <td th:text="${s.password}">4</td>-->
-<!--                &lt;!&ndash; <td th:text="${#dates.format(s.admissionTime, 'yyyy.MM.dd')}">4</td> &ndash;&gt;-->
-
-<!--                <td>-->
-<!--                    <a th:href="@{/user/delete/{id}(id=${s.id})}">delete</a>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <a th:href="@{/user/update/{id}(id=${s.id})}">update</a>-->
-<!--                </td>-->
-<!--                    <a href="${path }/identity/showUpdateDept.action?dept.id=${id}">修改</a>-->
-<!--                </td>-->
-
-<!--            </tr>-->
-<!--        </s:iterator>-->
-
-<!--        <tfoot>-->
-<!--        <tr>-->
-<!--            <td colspan="9">-->
-<!--                <input type="button" id="deleteM" value="删除多个">-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tfoot>-->
-        </tr>
-        </tbody>
-    </table>
-</h3>
-<h2 align="center">
-    <a th:href="@{/user/insertuser}">Add information</a>
-</h2>
-</body>
+<div id="app">
+<!--    <i-button @click="show">查询</i-button>-->
+    <dic>
+        <Form align="center" ref="formCustom" :model="formCustom"  :label-width="80">
+            <FormItem label="loginName" prop="loginName">
+                <Input placeholder="LoginName" type="text" v-model="formCustom.loginName"></Input>
+            </FormItem>
+            <FormItem label="username" prop="username">
+                <Input placeholder="Username" type="text" v-model="formCustom.username"></Input>
+            </FormItem>
+            <FormItem label="password" prop="password">
+                <Input placeholder="Password" type="text" v-model="formCustom.password" ></Input>
+            </FormItem>
+            <FormItem>
+                <Button type="primary" @click="handleSubmit('formCustom')">新增</Button>
+                <Button @click="handleReset('formCustom')" style="margin-left: 8px">重置</Button>
+            </FormItem>
+        </Form>
+    </dic>
 
 
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <i-table :columns="columns1" :data="data1">
+        <template slot-scope="{ row }" slot="name">
+            <strong>{{ row.name }}</strong>
+        </template>
+        <template  slot-scope="{ row, index }" slot="action">
+            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
+            <Button id = "btn" type="error" size="small" @click="remove(row)">Delete</Button>
+        </template>
+    </i-table>
+
+
+    <!--    <Button type="error" size="small" @click="remove(index)">Delete</Button>-->
+<!--    <Button @click="handleSelectAll(true)">Set all selected</Button>-->
+<!--    <Button @click="handleSelectAll(false)">Cancel all selected</Button>-->
+<!--    <Page :total="100" ></Page>-->
+</div>
 <script>
-    let doms = document.querySelectorAll('.checked')
-    let ids = []
-    doms.forEach(item => {
-        console.log(item)
-        console.log(item.getAttribute('checked'))
-        if(item.getAttribute('checked') === 'checked') ids.push(item.getAttribute('data-id'))
-    })
-    console.log(ids)
-    console.log(doms)
+    new Vue({
+        el: '#app',
+        data: {
+            columns1: [
+                {
+                    type: 'selection',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: 'id',
+                    key: 'id'
+                },
+                {
+                    title: 'loginName',
+                    key: 'loginName'
+                },
+                {
+                    title: 'username',
+                    key: 'username'
+                },
+                {
+                    title:'password',
+                    key:'password'
+                },
+                {
+                    title: 'Action',
+                    slot: 'action',
+                    width: 150,
+                    align: 'center'
+                }
+            ],
+            data1: [
+            ],
+            formCustom: {
+                loginName: '',
+                username: '',
+                password: ''
+            },
 
-    //删除多个 url:https://blog.csdn.net/yuxiangdeming/article/details/103964578
-    //$('deleteM').onclick = function () {
-      //  let box = document.querySelectorAll('.chk');
-        //for(let i = box.length-1;i>=0;i--){
-          //  if (box[i].checked){
-            //    box[i].parentNode.parentNode.remove();
-            //}
-        //}
-    //}
-
-    $("input[id^='box_']").click(function(){//点击每一个子checkbox，都会触发这个事件
-
-        /**获取到下面所有checkbox*/
-        var boxs = $("input[id^='box_']");
-        /*
-          * 下面是为checkAll设置它是否checked属性
-            boxs.length表示的是所有子checkbox的个数
-            boxs.filter(":checked").length表示是过滤出所有
-                   子checkbox当中已经被点击选中的checkbox的个数，如果个数相等，
-                   那么就会返回true,如果不相等，就返回false
-        */
-        $("#checkAll").attr("checked",boxs.length == boxs.filter(":checked").length);
-    });
-
-    /**为删除按钮绑定事件*/
-    $("#btn").click(function(){
-        /**获取下面选中的checkbox*/
-        var checkedbox = $("input[id^='box_']:checked");
-        console.log(checkedbox)
-        if(checkedbox.length == 0){
-            alert("至少选择一项");
-        }else{
-            if(confirm("你确定要删除吗？？？")){
-                var ids = new Array();
-                checkedbox.each(function(index, data){
-                    ids.push($(data).attr('value'));
-                });
-               // alert(ids);
+        },
+        methods: {
+            handleSelectAll (status) {
+                this.$refs.selection.selectAll(status);
+            },
+            query(){
+                let that = this
                 $.ajax({
-                    url: "./deletes/"+ids,
+                    url: "http://localhost:8080/user/findStu",
                     //dataType: "json",
-                    type: "post",
-                    data: {"ids":ids},
-                    success: function(data) {  //这里就是我出错的地方
-                        window.location.reload();
-                        // alert(result.msg);
+                    type: "Get",
+                    success: function (data) {
+                        that.data1 = data
                     }
                     // error: function(data) {
                     //     alert("请求出错");
                     //     alert(data);
                     // }
                 });
+            },
+            show (index) {
+                this.$Modal.info({
+                    title: 'User Info',
+                    content: `Name：${this.data1[index].loginName}<br>Age：${this.data1[index].username}<br>Address：${this.data1[index].password}`
+                })
+            },
+            remove (row) {
+                let that = this
+                $.ajax({
+                    url: "http://localhost:8080/user/deletes/"+row.id,
+                    //dataType: "json",
+                    type: "Post",
+                    success: function (data) {
+                        that.query();
+                    }
+                    // error: function(data) {
+                    //     alert("请求出错");
+                    //     alert(data);
+                    // }
+                });
+
+            },
+            handleSubmit (name) {
+                let that = this
+                $.ajax({
+                    url: "http://localhost:8080/user/insertGetKey",
+                    //dataType: "json",
+                    type: "Post",
+                    data:that.formCustom,
+                    success: function (data) {
+                        // alert(data)
+                        // console.log
+                        // debugger
+                        that.query();
+
+                    }
+                    // error: function(data) {
+                    //     alert("请求出错");
+                    //     alert(data);
+                    // }
+                });
+            },
+            handleReset (name) {
+                this.$refs[name].resetFields();
             }
-        }
-    });
-    $('#searchBtn').on('click', function () {
-        $.ajax({
-            url: `/user/findByKeys/${$('#searchVal').val()}`,
-            //dataType: "json",
-            type: "get",
-            data: {},
-            success: function (data) {
-                console.log(data)
-                $('.text').html(JSON.stringify(data))
-
-                //window.location.reload();
+        },
+            created() {
+            this.query()
             }
-        })
-    });
-
-
+    })
 </script>
+</body>
 </html>
