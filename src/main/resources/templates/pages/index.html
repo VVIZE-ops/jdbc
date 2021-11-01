@@ -29,17 +29,33 @@
         </Form>
     </dic>
 
-
     <i-table :columns="columns1" :data="data1">
-        <template slot-scope="{ row }" slot="name">
-            <strong>{{ row.name }}</strong>
-        </template>
+<!--        修改-->
         <template  slot-scope="{ row, index }" slot="action">
             <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
-            <Button id = "btn" type="error" size="small" @click="remove(row)">Delete</Button>
+            <Button id = "btn" type="error" size="small" @click="remove(row)">删除</Button>
+            <Button  type="primary" size="small" @click="openWindow(row)">修改</Button>
         </template>
+
     </i-table>
 
+    <Modal
+            v-model="modal1"
+            title="修改"
+            @on-ok="update()"
+            @on-cancel="handleReset('formCustom')">
+        <Form align="center" ref="formCustom1" :model="formCustom1"  :label-width="80">
+            <FormItem label="loginName" prop="loginName">
+                <Input placeholder="LoginName" type="text" v-model="formCustom1.loginName"></Input>
+            </FormItem>
+            <FormItem label="username" prop="username">
+                <Input placeholder="Username" type="text" v-model="formCustom1.username"></Input>
+            </FormItem>
+            <FormItem label="password" prop="password">
+                <Input placeholder="Password" type="text" v-model="formCustom1.password" ></Input>
+            </FormItem>
+        </Form>
+    </Modal>
 
     <!--    <Button type="error" size="small" @click="remove(index)">Delete</Button>-->
 <!--    <Button @click="handleSelectAll(true)">Set all selected</Button>-->
@@ -86,7 +102,13 @@
                 username: '',
                 password: ''
             },
-
+            formCustom1: {
+                loginName: '',
+                username: '',
+                password: '',
+                id:''
+            },
+            modal1: false
         },
         methods: {
             handleSelectAll (status) {
@@ -110,7 +132,7 @@
             show (index) {
                 this.$Modal.info({
                     title: 'User Info',
-                    content: `Name：${this.data1[index].loginName}<br>Age：${this.data1[index].username}<br>Address：${this.data1[index].password}`
+                    content: `loginName：${this.data1[index].loginName}<br>username：${this.data1[index].username}<br>password：${this.data1[index].password}`
                 })
             },
             remove (row) {
@@ -149,8 +171,45 @@
                     // }
                 });
             },
+            update(name){
+                let that = this
+                $.ajax({
+                    url: "http://localhost:8080/user/upDate",
+                    //dataType: "json",
+                    type: "post",
+                    data:that.formCustom1,
+                    success: function (data) {
+                        // alert(data)
+                        // console.log
+                        // debugger
+                        that.query();
+
+                    }
+                    // error: function(data) {
+                    //     alert("请求出错");
+                    //     alert(data);
+                    // }
+                });
+            },
             handleReset (name) {
                 this.$refs[name].resetFields();
+            },
+            handleEdit (row, index) {
+                debugger
+                this.editloginName = row.loginName;
+                this.editusername = row.username;
+                this.editpassword = row.password;
+                this.editIndex = index;
+            },
+            handleSave (index) {
+                // this.data[index].loginName = this.editloginName;
+                // this.data[index].username = this.editusername;
+                // this.data[index].password = this.editpassword;
+                // this.editIndex = -1;
+            },
+            openWindow(row){
+                this.modal1 = true;
+                this.formCustom1.id =row.id
             }
         },
             created() {

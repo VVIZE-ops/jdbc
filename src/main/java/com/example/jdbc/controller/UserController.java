@@ -109,11 +109,11 @@ public class UserController {
      * @param:login_name
      * @param:id
      */
-    @RequestMapping("/upDate")
-    public ModelAndView upDate(User user) {
+    @PostMapping ("/upDate")
+    public Object upDate(User user) {
         userService.upDate(user.getUsername(),user.getLoginName(),user.getPassword(),user.getId());
         //model.addAttribute("user",new User());
-        return new ModelAndView("redirect:/user/findStu");
+        return "";
     }
 
     @RequestMapping("/update/{id}")
