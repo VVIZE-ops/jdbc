@@ -135,14 +135,31 @@ public class UserController {
        return "success";
     }
 
+    /***
+     *
+     * @param ids
+     * @return
+     */
 
-    @PostMapping("/deletes/{ids}")
-    public Object delete(@PathVariable String ids){
+//    @PostMapping("/deletes")
+//    public Object delete(@RequestParam(name = "ids",required = false) String ids){
+//        String[] id=ids.split(",");
+//        System.out.println(ids.length());
+//        for(int i=0;i<id.length;i++){
+//            userService.delete(Integer.valueOf(id[i]));}
+//        return "success";
+//    }
+    @PostMapping("/deletes")
+    public Object delete(@RequestParam String ids){
         String[] id=ids.split(",");
-        System.out.println(ids.length());
-        for(int i=0;i<id.length;i++){
-            userService.delete(Integer.valueOf(id[i]));}
-        return "success";
+//        System.out.println(ids.length());
+        try{
+            for(int i=0;i<id.length;i++){
+                userService.delete(Integer.valueOf(id[i]));}
+            return "success";}
+        catch (Exception e){
+            return "Please select at least one";
+        }
     }
 
 

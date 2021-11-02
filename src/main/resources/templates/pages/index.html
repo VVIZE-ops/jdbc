@@ -2,48 +2,97 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>ViewUI example</title>
+
+    <title>Student Information Management System</title>
     <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
     <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
     <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 </head>
 <body>
+
+<h1 align="center">Student Information Management System</h1>
 <div id="app">
 <!--    <i-button @click="show">查询</i-button>-->
-    <dic>
-        <Form align="center" ref="formCustom" :model="formCustom"  :label-width="80">
-            <FormItem label="loginName" prop="loginName">
-                <Input placeholder="LoginName" type="text" v-model="formCustom.loginName"></Input>
-            </FormItem>
-            <FormItem label="username" prop="username">
-                <Input placeholder="Username" type="text" v-model="formCustom.username"></Input>
-            </FormItem>
-            <FormItem label="password" prop="password">
-                <Input placeholder="Password" type="text" v-model="formCustom.password" ></Input>
-            </FormItem>
-            <FormItem>
-                <Button type="primary" @click="handleSubmit('formCustom')">新增</Button>
-                <Button @click="handleReset('formCustom')" style="margin-left: 8px">重置</Button>
-            </FormItem>
-        </Form>
-    </dic>
+<!--    <dic>-->
+<!--        <Form align="center" ref="formCustom" :model="formCustom"  :label-width="80">-->
+<!--            <FormItem label="loginName" prop="loginName">-->
+<!--                <Input placeholder="LoginName" type="text" v-model="formCustom.loginName"></Input>-->
+<!--            </FormItem>-->
+<!--            <FormItem label="username" prop="username">-->
+<!--                <Input placeholder="Username" type="text" v-model="formCustom.username"></Input>-->
+<!--            </FormItem>-->
+<!--            <FormItem label="password" prop="password">-->
+<!--                <Input placeholder="Password" type="text" v-model="formCustom.password" ></Input>-->
+<!--            </FormItem>-->
+<!--&lt;!&ndash;            <FormItem>&ndash;&gt;-->
+<!--                <Button type="primary" @click="handleSubmit('formCustom')">新增</Button>-->
+<!--                <Button @click="handleReset('formCustom')" style="margin-left: 8px">重置</Button>-->
+<!--            </FormItem>-->
+<!--        </Form>-->
+<!--    </dic>-->
+<!--    新增数据-->
+<!--    <i-table border ref="selection" :columns="columns1" :data="data1" @on-select="select"></i-table>-->
+<!--        <template  slot-scope="{ selection, index }" slot="action">-->
+<!--            <Button type="error" size="small" @click="delete(selection)">删除</Button>-->
+<!--        </template>-->
 
-    <i-table :columns="columns1" :data="data1">
+<!--    </i-table>-->
+
+
+<!--    <template >-->
+<!--        <Button type="error" size="small" @click="delete(selection)"></Icon>dele</Button>-->
+<!--    </template>-->
+
+
+<!--    搜索-->
+    <div>
+        <i-input search placeholder="Enter something..." />
+        <i-input search enter-button placeholder="Enter something..." style="width: auto"/>
+    </div>
+
+<!--    <template>-->
+<!--        <Button type="primary"  @click="delete" >删除</Button>-->
+<!--    </template>-->
+
+<!--    新增-->
+    <template>
+        <Button type="primary" shape="circle" icon="ios-search"></Button>
+        <Button type="primary"  @click="Delete(ids)" >删除</Button>
+        <Button align="left" type="primary" icon="ios-search" @click="modal2= true" >新增</Button>
+        <Modal
+                v-model="modal2"
+                title="新增"
+                @on-ok="handleSubmit ()"
+                @on-cancel="handleReset()">
+            <Form align="center" ref="formCustom" :model="formCustom"  :label-width="80">
+                <FormItem label="loginName" prop="loginName">
+                    <Input placeholder="LoginName" type="text" v-model="formCustom.loginName"></Input>
+                </FormItem>
+                <FormItem label="username" prop="username">
+                    <Input placeholder="Username" type="text" v-model="formCustom.username"></Input>
+                </FormItem>
+                <FormItem label="password" prop="password">
+                    <Input placeholder="Password" type="text" v-model="formCustom.password" ></Input>
+                </FormItem>
+        </Modal>
+    </template>
+
+    <i-table :columns="columns1" :data="data1"  @on-select="select" @on-select-all="selectall" @on-select-all-cancel="cacel">
 <!--        修改-->
+
         <template  slot-scope="{ row, index }" slot="action">
             <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
             <Button id = "btn" type="error" size="small" @click="remove(row)">删除</Button>
-            <Button  type="primary" size="small" @click="openWindow(row)">修改</Button>
+            <Button type="primary" size="small" @click="openWindow(row)">修改</Button>
         </template>
-
     </i-table>
 
     <Modal
             v-model="modal1"
             title="修改"
             @on-ok="update()"
-            @on-cancel="handleReset('formCustom')">
+            @on-cancel="handleReset('formCustom1')">
         <Form align="center" ref="formCustom1" :model="formCustom1"  :label-width="80">
             <FormItem label="loginName" prop="loginName">
                 <Input placeholder="LoginName" type="text" v-model="formCustom1.loginName"></Input>
@@ -59,7 +108,7 @@
 
     <!--    <Button type="error" size="small" @click="remove(index)">Delete</Button>-->
 <!--    <Button @click="handleSelectAll(true)">Set all selected</Button>-->
-<!--    <Button @click="handleSelectAll(false)">Cancel all selected</Button>-->
+
 <!--    <Page :total="100" ></Page>-->
 </div>
 <script>
@@ -108,12 +157,20 @@
                 password: '',
                 id:''
             },
-            modal1: false
+            formCustom2: {
+                loginName: '',
+                username: '',
+                password: ''
+            },
+
+            modal1: false,
+            modal2: false,
+            ids:[]
         },
         methods: {
-            handleSelectAll (status) {
-                this.$refs.selection.selectAll(status);
-            },
+            // handleSelectAll (status) {
+            //     this.$refs.selection.selectAll(status);
+            // },
             query(){
                 let that = this
                 $.ajax({
@@ -138,9 +195,56 @@
             remove (row) {
                 let that = this
                 $.ajax({
-                    url: "http://localhost:8080/user/deletes/"+row.id,
+                    url: "http://localhost:8080/user/deletes",
                     //dataType: "json",
                     type: "Post",
+                    data:{"ids":row.id},
+                    success: function (data) {
+                        that.query();
+                    }
+                    // error: function(data) {
+                    //     alert("请求出错");
+                    //     alert(data);
+                    // }
+                });
+
+            },
+            select(selection){
+
+                selection.forEach((item) => {
+                    if(this.ids.indexOf(item.id)<=-1){
+                        this.ids.push(item.id)
+                    }
+
+                })
+
+                console.log(this.ids);
+            },
+            selectall(selection) {
+                selection.forEach((item) => {
+                    if(this.ids.indexOf(item.id)<=-1){
+                        this.ids.push(item.id)
+                    }
+
+                })
+
+                console.log(this.ids);
+                console.log(selection);
+            },
+            cacel(selection){
+                //
+                this.ids=[]
+
+                console.log(this.ids);
+                console.log(selection);
+            },
+            Delete(){
+                let that = this
+                $.ajax({
+                    url: "http://localhost:8080/user/deletes",
+                    //dataType: "json",
+                     type: "post",
+                    data:{"ids":that.ids.join(",")},
                     success: function (data) {
                         that.query();
                     }
@@ -210,6 +314,21 @@
             openWindow(row){
                 this.modal1 = true;
                 this.formCustom1.id =row.id
+            },
+            search(name) {
+                let that = this
+                $.ajax({
+                    url: "http://localhost:8080/user/findByKeys",
+                    //dataType: "json",
+                    type: "post",
+                    data: that.formCustom,
+                    success: function (data) {
+                        // alert(data)
+                        console.log(data)
+                        // debugger
+
+                    }
+                });
             }
         },
             created() {
