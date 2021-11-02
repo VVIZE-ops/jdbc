@@ -3,6 +3,7 @@ package com.example.jdbc.controller;
 
 import com.example.jdbc.entity.User;
 import com.example.jdbc.service.UserService;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,13 @@ public class UserController {
         userService.insertUser(login_name,username,password);
         return "插入数据成功";
     }*/
+    @Controller
+    public class HelloController {
+        @RequestMapping(value = {"/","/index.html"})
+        public String index(){
+            return "index";
+        }
+    }
 
     /**
      * describe:为了实现页面跳转后正常插入数据
