@@ -46,10 +46,31 @@
 
 
 <!--    搜索-->
-    <div>
-        <i-input search placeholder="Enter something..." />
-        <i-input search enter-button placeholder="Enter something..." style="width: auto"/>
+    <div class="ui-icon-search" align="left">
+<!--        <i-input search placeholder="Enter something..." />-->
+<!--        <i-input search enter-button placeholder="Enter something..." style="width: auto" ref="keys"/>-->
+
+<!--        <input type="text" @keyup.enter="search" @input="search($event)"/>-->
+        <i-input v-model="keys" search enter-button="Search" placeholder="Enter something..." @on-search="search(keys)" />
+<!--        <i-input-->
+<!--                v-model="keys"-->
+<!--                search-->
+<!--                suffix="ios-search"-->
+<!--                placeholder="搜索"-->
+<!--                style="width: auto"-->
+<!--                @on-search="search(keys)"-->
+<!--        />-->
+
     </div>
+<!--    <div class="seek">-->
+<!--        <Input-->
+<!--                v-model="input"-->
+<!--                placeholder="请输入内容..."-->
+<!--                clearable-->
+<!--                style="width: 200px"-->
+<!--        />-->
+<!--        <Button type="primary" @click="seek">搜索</Button>-->
+<!--    </div>-->
 
 <!--    <template>-->
 <!--        <Button type="primary"  @click="delete" >删除</Button>-->
@@ -75,6 +96,7 @@
                 <FormItem label="password" prop="password">
                     <Input placeholder="Password" type="text" v-model="formCustom.password" ></Input>
                 </FormItem>
+            </Form>
         </Modal>
     </template>
 
@@ -114,6 +136,7 @@
 <script>
     new Vue({
         el: '#app',
+        name:'search',
         data: {
             columns1: [
                 {
@@ -162,10 +185,10 @@
                 username: '',
                 password: ''
             },
-
+            keys: '',
             modal1: false,
             modal2: false,
-            ids:[]
+            ids:[],
         },
         methods: {
             // handleSelectAll (status) {
@@ -186,6 +209,7 @@
                     // }
                 });
             },
+
             show (index) {
                 this.$Modal.info({
                     title: 'User Info',
@@ -315,20 +339,39 @@
                 this.modal1 = true;
                 this.formCustom1.id =row.id
             },
-            search(name) {
+            query1(){
                 let that = this
                 $.ajax({
                     url: "http://localhost:8080/user/findByKeys",
                     //dataType: "json",
-                    type: "post",
-                    data: that.formCustom,
+                    type: "Get",
+                    data:{'keys':that.keys},
                     success: function (data) {
+                        that.data1 = data
+                    }
+                    // error: function(data) {
+                    //     alert("请求出错");
+                    //     alert(data);
+                    // }
+                });
+            },
+            search(keys) {
+                let that = this
+                $.ajax({
+                    url: "http://localhost:8080/user/findByKeys",
+                    //dataType: "json",
+                    type: "Get",
+                    data:{'keys':keys},
+                    success: function (data) {
+                        that.query1();
                         // alert(data)
-                        console.log(data)
                         // debugger
 
                     }
                 });
+            },
+            register(){
+                console.log(this.$refs.keys.value)
             }
         },
             created() {

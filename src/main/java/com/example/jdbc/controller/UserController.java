@@ -101,8 +101,10 @@ public class UserController {
 
     @GetMapping("/findByKeys")
     public Object findByKeys(@RequestParam(name = "keys",required = false)  String keys){
-        return userService.findByKeys(keys);
-    }
+        try{return userService.findByKeys(keys);
+        } catch (Exception e){
+            return userService.findAll();}
+        }
     /**
      * describe:修改数据
      * @param:username
