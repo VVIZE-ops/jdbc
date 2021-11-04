@@ -29,12 +29,12 @@ CREATE DATABASE userweb;
 DROP TABLE IF EXISTS use_info;
 
 CREATE TABLE `use_info` (
-                            `user_id` int(32) NOT NULL AUTO_INCREMENT,
-                            `user_name` varchar(255) DEFAULT NULL,
-                            `sex` int(1) DEFAULT NULL,
-                            `id_number` int(18) DEFAULT NULL,
-                            `phone` int(11) DEFAULT NULL,
+                            `id` int(32) NOT NULL AUTO_INCREMENT,
+                            `userName` varchar(255) DEFAULT NULL,
+                            `sex` varchar(10) DEFAULT NULL,
+                            `idNumber` varchar(25) DEFAULT NULL,
+                            `phone` varchar(25) DEFAULT NULL,
                             `birth` date DEFAULT NULL,
                             `address` varchar(255) DEFAULT NULL,
-                            PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8
