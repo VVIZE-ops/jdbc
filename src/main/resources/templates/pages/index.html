@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Student Information Management System</title>
+    <title>User Information Management System</title>
     <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
     <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
     <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
@@ -11,70 +11,16 @@
 </head>
 <body>
 
-<h1 align="center">Student Information Management System</h1>
+<h1 align="center">User Information Management System</h1>
 <div id="app">
-<!--    <i-button @click="show">查询</i-button>-->
-<!--    <dic>-->
-<!--        <Form align="center" ref="formCustom" :model="formCustom"  :label-width="80">-->
-<!--            <FormItem label="loginName" prop="loginName">-->
-<!--                <Input placeholder="LoginName" type="text" v-model="formCustom.loginName"></Input>-->
-<!--            </FormItem>-->
-<!--            <FormItem label="username" prop="username">-->
-<!--                <Input placeholder="Username" type="text" v-model="formCustom.username"></Input>-->
-<!--            </FormItem>-->
-<!--            <FormItem label="password" prop="password">-->
-<!--                <Input placeholder="Password" type="text" v-model="formCustom.password" ></Input>-->
-<!--            </FormItem>-->
-<!--&lt;!&ndash;            <FormItem>&ndash;&gt;-->
-<!--                <Button type="primary" @click="handleSubmit('formCustom')">新增</Button>-->
-<!--                <Button @click="handleReset('formCustom')" style="margin-left: 8px">重置</Button>-->
-<!--            </FormItem>-->
-<!--        </Form>-->
-<!--    </dic>-->
-<!--    新增数据-->
-<!--    <i-table border ref="selection" :columns="columns1" :data="data1" @on-select="select"></i-table>-->
-<!--        <template  slot-scope="{ selection, index }" slot="action">-->
-<!--            <Button type="error" size="small" @click="delete(selection)">删除</Button>-->
-<!--        </template>-->
-
-<!--    </i-table>-->
-
-
-<!--    <template >-->
-<!--        <Button type="error" size="small" @click="delete(selection)"></Icon>dele</Button>-->
-<!--    </template>-->
-
 
 <!--    搜索-->
     <div class="ui-icon-search" align="left">
-<!--        <i-input search placeholder="Enter something..." />-->
-<!--        <i-input search enter-button placeholder="Enter something..." style="width: auto" ref="keys"/>-->
 
-<!--        <input type="text" @keyup.enter="search" @input="search($event)"/>-->
         <i-input v-model="keys" search enter-button="Search" placeholder="Enter something..." @on-search="search(keys)" />
-<!--        <i-input-->
-<!--                v-model="keys"-->
-<!--                search-->
-<!--                suffix="ios-search"-->
-<!--                placeholder="搜索"-->
-<!--                style="width: auto"-->
-<!--                @on-search="search(keys)"-->
-<!--        />-->
 
     </div>
-<!--    <div class="seek">-->
-<!--        <Input-->
-<!--                v-model="input"-->
-<!--                placeholder="请输入内容..."-->
-<!--                clearable-->
-<!--                style="width: 200px"-->
-<!--        />-->
-<!--        <Button type="primary" @click="seek">搜索</Button>-->
-<!--    </div>-->
 
-<!--    <template>-->
-<!--        <Button type="primary"  @click="delete" >删除</Button>-->
-<!--    </template>-->
 
 <!--    新增-->
     <template>
@@ -91,16 +37,16 @@
                     <Input placeholder="userName" type="text" v-model="formCustom.userName"></Input>
                 </FormItem>
                 <FormItem label="sex" prop="sex">
-                    <Input placeholder="sex" type="text" v-model="formCustom.sex"></Input>
+                    <Input placeholder="sex：男/女" type="text" v-model="formCustom.sex"></Input>
                 </FormItem>
                 <FormItem label="idNumber" prop="idNumber">
-                    <Input placeholder="idNumber" type="text" v-model="formCustom.idNumber" ></Input>
+                    <Input placeholder="idNumber：18位数身份证" type="text" v-model="formCustom.idNumber" ></Input>
                 </FormItem>
                 <FormItem label="phone" prop="phone">
-                    <Input placeholder="phone" type="text" v-model="formCustom.phone" ></Input>
+                    <Input placeholder="phone:11位数手机号" type="text" v-model="formCustom.phone" ></Input>
                 </FormItem>
                 <FormItem label="birth" prop="birth">
-                    <Input placeholder="birth" type="text" v-model="formCustom.birth" ></Input>
+                    <Input placeholder="birth：2021-01-01(必填)" type="text" v-model="formCustom.birth" ></Input>
                 </FormItem>
                 <FormItem label="address" prop="address">
                     <Input placeholder="address" type="text" v-model="formCustom.address" ></Input>
@@ -109,7 +55,7 @@
         </Modal>
     </template>
 
-    <i-table :columns="columns1" :data="data1"  @on-select="select" @on-select-all="selectall" @on-select-all-cancel="cacel">
+    <i-table :columns="columns1" :data="data1"  @on-select="select" @on-select-cancel="cacelone" @on-select-all="selectall" @on-select-all-cancel="cacel">
 <!--        修改-->
 
         <template  slot-scope="{ row, index }" slot="action">
@@ -129,7 +75,7 @@
                 <Input placeholder="userName" type="text" v-model="formCustom1.userName"></Input>
             </FormItem>
             <FormItem label="sex" prop="sex">
-                <Input placeholder="sex" type="text" v-model="formCustom1.sex"></Input>
+                <Input placeholder="sex：男/女" type="text" v-model="formCustom1.sex"></Input>
             </FormItem>
             <FormItem label="idNumber" prop="idNumber">
                 <Input placeholder="idNumber" type="text" v-model="formCustom1.idNumber" ></Input>
@@ -138,13 +84,28 @@
                 <Input placeholder="phone" type="text" v-model="formCustom1.phone" ></Input>
             </FormItem>
             <FormItem label="birth" prop="birth">
-                <Input placeholder="birth" type="text" v-model="formCustom1.birth" ></Input>
+                <Input placeholder="birth：2021-01-01(必填)" type="text" v-model="formCustom1.birth" ></Input>
             </FormItem>
             <FormItem label="address" prop="address">
                 <Input placeholder="address" type="text" v-model="formCustom1.address" ></Input>
             </FormItem>
         </Form>
     </Modal>
+<!--    <div>-->
+<!--        <Page :total="page.total"-->
+<!--              :current="page.index"-->
+<!--              :page-size="page.size"-->
+<!--              :page-size-opts="[10, 20, 50, 100, 500]"-->
+<!--              size="small"-->
+<!--              prev-text="上一页"-->
+<!--              next-text="下一页"-->
+<!--              show-total-->
+<!--              show-elevator-->
+<!--              show-sizer-->
+<!--              @on-change="changeIndexPage"-->
+<!--              @on-page-size-change="changePageSize">-->
+<!--        </Page>-->
+<!--    </div>-->
 
     <!--    <Button type="error" size="small" @click="remove(index)">Delete</Button>-->
 <!--    <Button @click="handleSelectAll(true)">Set all selected</Button>-->
@@ -236,6 +197,7 @@
             query(){
                 let that = this
                 $.ajax({
+                    // 8.142.131.195
                     url: "http://localhost:8080/user/findStu",
                     //dataType: "json",
                     type: "Get",
@@ -291,6 +253,16 @@
 
                 })
 
+                console.log(this.ids);
+                console.log(selection);
+            },
+            cacelone(selection){
+                this.ids=[]
+                selection.forEach((item) => {
+                    if(this.ids.indexOf(item.id)<=-1){
+                        this.ids.push(item.id)
+                    }
+                })
                 console.log(this.ids);
                 console.log(selection);
             },
@@ -408,6 +380,22 @@
             },
             register(){
                 console.log(this.$refs.keys.value)
+            },
+            changeIndexPage(i) {
+                // i是分页中当前页的页码
+                this.page.index = i;
+                this.queryUser();
+            },
+            changePageSize(s){
+                // s为页面大小
+                this.page.index = 1;
+                this.page.size = s;
+                this.queryUser();
+            },
+            resetPage() {
+                this.page.index = 1;
+                this.page.size = 10;
+                this.page.total = 0;
             }
         },
             created() {

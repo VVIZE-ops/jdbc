@@ -52,9 +52,13 @@ public class UserRepository {
 
     public Integer insertGetKey(User user) {
         //声明插入的SQL语句
-        String sql = "insert into use_info (userName, sex, idNumber,phone,birth,address) values (?,?,?,?,?,?)";
-        Object args[] = new Object[]{user.getUserName(),user.getSex(),user.getIdNumber(),user.getPhone(),user.getBirth(),user.getAddress()};
-        return jdbcTemplate.update(sql, args);
+        try {
+            String sql = "insert into use_info (userName, sex, idNumber,phone,birth,address) values (?,?,?,?,?,?)";
+            Object args[] = new Object[]{user.getUserName(), user.getSex(), user.getIdNumber(), user.getPhone(), user.getBirth(), user.getAddress()};
+            return jdbcTemplate.update(sql, args);
+        }catch (Exception e){
+            return 0;
+        }
     }
 
     /**
@@ -98,6 +102,20 @@ public class UserRepository {
         }
 //        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
         //执行查询方法
+        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
+        return jdbcTemplate.query(sql,rowMapper);
+    }
+
+
+    public List<User> findByPage(Integer pagesize,Integer pageindex){
+        String sql = null;
+        if(pageindex==1){
+            sql = "select * from use_info limit "+pagesize+"";
+        }else {
+            Integer start = pagesize*(pageindex-1);
+            Integer end = pagesize*pageindex-start;
+            sql = "select * from use_info limit "+start+","+end+"";
+        }
         RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
         return jdbcTemplate.query(sql,rowMapper);
     }

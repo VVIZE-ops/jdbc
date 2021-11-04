@@ -47,8 +47,12 @@ public class UserController {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PostMapping ("/insertGetKey")
     public Object insertGetKey(User user){
-       userService.insertGetKey(user);
-        return "insert uccess";
+       try {
+           userService.insertGetKey(user);
+           return "insert uccess";
+       }catch (Exception e){
+           return "Can not input null";
+       }
     }
 
     /**
@@ -77,9 +81,13 @@ public class UserController {
      */
     @PostMapping("/update")
     public Object update( User user) {
-        userService.upDate(user);
-        //model.addAttribute("user",new User());
-        return "Update Success";
+        try {
+            userService.upDate(user);
+            //model.addAttribute("user",new User());
+            return "Update Success";
+        }catch (Exception e){
+            return "Can not input null";
+        }
     }
 
     /**
@@ -94,5 +102,11 @@ public class UserController {
             return studentList;
         } else{
             return userService.findAll();}
+    }
+
+    @GetMapping("/paging")
+    public Object paging(String pagesize, String pageindex){
+        List<User> usertList = userService.findByPage(Integer.parseInt(pagesize),Integer.parseInt(pageindex));
+        return  usertList;
     }
 }

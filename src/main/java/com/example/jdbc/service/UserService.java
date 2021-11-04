@@ -31,6 +31,7 @@ public class UserService {
 
     public List<User> findByKeys(String keys){return userRepository.findByKeys(keys);}
 
+    public List<User> findByPage(Integer pagesize,Integer pageindex){return userRepository.findByPage(pagesize,pageindex);}
 //
 //    public void upDate(String userName, String sex, String idNumber, String phone, Date birth, String address, Integer id) {
 //        userRepository.upDate(userName,sex,idNumber,phone,birth,address,id);
