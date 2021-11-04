@@ -20,3 +20,21 @@ CREATE TABLE tb_user (
     password varchar(20) COLLATE utf8_unicode_ci NOT NULL ,
     username varchar(20) COLLATE utf8_unicode_ci NOT NULL
     ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+-- 最新建表sql
+
+CREATE DATABASE userweb;
+DROP TABLE IF EXISTS use_info;
+
+CREATE TABLE `use_info` (
+                            `user_id` int(32) NOT NULL AUTO_INCREMENT,
+                            `user_name` varchar(255) DEFAULT NULL,
+                            `sex` int(1) DEFAULT NULL,
+                            `id_number` int(18) DEFAULT NULL,
+                            `phone` int(11) DEFAULT NULL,
+                            `birth` date DEFAULT NULL,
+                            `address` varchar(255) DEFAULT NULL,
+                            PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8

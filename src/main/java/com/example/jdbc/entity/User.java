@@ -1,41 +1,59 @@
 package com.example.jdbc.entity;
 
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
+
 public class User {
     private Integer id;
-    private String loginName;
-    private String username;
-    private String password;
+    private String userName;
+    private String sex;
+    private String idNumber;
+    private String phone;
+    private Date birth;
+    private String address;
 
 
-    public Integer getId() {
-        return id;
-    }
-
+    public Integer getId() { return id;}
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getLoginName() {
-        return loginName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getSex() {
+        return sex;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public String getPassword() {
-        return password;
+    public String getIdNumber() { return idNumber; }
+
+    public void setIdNumber(String IdNumber) { this.idNumber = IdNumber; }
+
+    public String getPhone(){return phone;}
+
+    public void setPhone(String phone){this.phone = phone;}
+
+    public Date getBirth(){return birth;}
+
+    public void setBirth(Date birth){this.birth = birth;}
+
+    public String getAddress() {
+        return address;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAddress(String address) {
+        this.address = address;
     }
+
 }
