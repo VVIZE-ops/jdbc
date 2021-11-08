@@ -1,31 +1,6 @@
-DROP TABLE IF EXISTS tb_user;
-
-CREATE TABLE tb_user (
-  id int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  login_name varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT '联系人显示的名字',
-  password varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT '联系人的名字',
-  username varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT '联系人的昵称',
-  PRIMARY KEY ('id')
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
--- 更新
-CREATE DATABASE jdbctemplate;
-
-
-CREATE TABLE tb_user (
-    id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    login_name varchar(20) COLLATE utf8_unicode_ci NOT NULL ,
-    password varchar(20) COLLATE utf8_unicode_ci NOT NULL ,
-    username varchar(20) COLLATE utf8_unicode_ci NOT NULL
-    ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-
--- 最新建表sql
-
+-- 建表sql
 CREATE DATABASE userweb;
+
 DROP TABLE IF EXISTS use_info;
 
 CREATE TABLE `use_info` (
@@ -38,3 +13,13 @@ CREATE TABLE `use_info` (
                             `address` varchar(255) DEFAULT NULL,
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8
+
+--插入数据
+INSERT INTO use_info
+(userName,sex,idNumber,phone,birth,address)
+VALUES
+	( '李一', '男', '123456789987654321', '12345678902', '2000-9-9', '安徽省淮北市' ),
+	('李二','男','123456789987654321','12345678902','2000-9-9','安徽省合肥市'),
+	('李三','男','123456789987654321','12345678902','2001-9-9','安徽省安庆市'),
+	('李四','女','123456789987654321','12345678902','2002-9-9','湖北省武汉市'),
+	('李五','男','123456789987654321','12345678902','2003-9-9','湖北省天门')

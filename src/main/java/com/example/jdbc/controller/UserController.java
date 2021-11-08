@@ -34,8 +34,8 @@ public class UserController {
      */
     @GetMapping("/findStu")
     public List<Map<String, Object>> findStu(){
-        List<Map<String, Object>> studentList = userService.findAll();
-        return studentList;
+        List<Map<String, Object>> usertList = userService.findAll();
+        return usertList;
 
     }
 
@@ -98,8 +98,8 @@ public class UserController {
     @GetMapping("/findByKeys")
     public Object findByKeys(@RequestParam(name = "keys",required = false)  String keys){
         if((keys!=null&&!"".equals(keys))){
-            List<User> studentList = userService.findByKeys(keys);
-            return studentList;
+            List<User> usertList = userService.findByKeys(keys);
+            return usertList;
         } else{
             return userService.findAll();}
     }

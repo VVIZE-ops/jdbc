@@ -98,7 +98,7 @@ public class UserRepository {
         if(isNumeric(keys)){
             sql = "select * from use_info where id ="+keys+" or birth="+keys+" or userName like '%"+keys+"%'";
         }else{
-            sql = "select * from use_info where userName like '%"+keys+"%'";
+            sql = "select * from use_info where userName like '%"+keys+"%' or sex ='"+keys+"'";
         }
 //        RowMapper<User> rowMapper = new BeanPropertyRowMapper<>(User.class);
         //执行查询方法

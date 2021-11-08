@@ -59,7 +59,7 @@
 <!--        修改-->
 
         <template  slot-scope="{ row, index }" slot="action">
-            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">View</Button>
+            <Button type="primary" size="small" style="margin-right: 5px" @click="show(index)">查看</Button>
             <Button id = "btn" type="error" size="small" @click="remove(row)">删除</Button>
             <Button type="primary" size="small" @click="openWindow(row)">修改</Button>
         </template>
@@ -91,21 +91,6 @@
             </FormItem>
         </Form>
     </Modal>
-<!--    <div>-->
-<!--        <Page :total="page.total"-->
-<!--              :current="page.index"-->
-<!--              :page-size="page.size"-->
-<!--              :page-size-opts="[10, 20, 50, 100, 500]"-->
-<!--              size="small"-->
-<!--              prev-text="上一页"-->
-<!--              next-text="下一页"-->
-<!--              show-total-->
-<!--              show-elevator-->
-<!--              show-sizer-->
-<!--              @on-change="changeIndexPage"-->
-<!--              @on-page-size-change="changePageSize">-->
-<!--        </Page>-->
-<!--    </div>-->
 
     <!--    <Button type="error" size="small" @click="remove(index)">Delete</Button>-->
 <!--    <Button @click="handleSelectAll(true)">Set all selected</Button>-->
@@ -396,7 +381,7 @@
                 this.page.index = 1;
                 this.page.size = 10;
                 this.page.total = 0;
-            }
+            },
         },
             created() {
             this.query()
