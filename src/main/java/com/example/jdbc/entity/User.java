@@ -3,9 +3,10 @@ package com.example.jdbc.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class User {
+public class User implements Serializable {
     private Integer id;
     private String userName;
     private String sex;
