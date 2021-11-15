@@ -4,6 +4,7 @@ package com.example.jdbc.controller;
 import com.example.jdbc.dao.UserDao;
 import com.example.jdbc.entity.User;
 //import com.example.jdbc.service.UserService;
+import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -152,6 +153,14 @@ public class UserController {
 //            return usertList;
         } else{
             return userDao.findAll();}
+    }
+
+    @ApiOperation(value="分页显示", notes="分页显示用户信息")
+    @GetMapping("/paging")
+    public Object getUserPage(int pageNum,int pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> list = userDao.findAll();
+        return list;
     }
 
 //    @GetMapping("/paging")
